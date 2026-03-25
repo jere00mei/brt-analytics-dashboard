@@ -2,6 +2,12 @@ import { COOKIE_NAME } from "@shared/const";
 import { getSessionCookieOptions } from "./_core/cookies";
 import { systemRouter } from "./_core/systemRouter";
 import { publicProcedure, router } from "./_core/trpc";
+import { dashboardRouter } from "./routers/dashboard";
+import { financeiroRouter } from "./routers/financeiro";
+import { comercialRouter } from "./routers/comercial";
+import { operacionalRouter } from "./routers/operacional";
+import { limitesGiroRouter } from "./routers/limites-giro";
+import { filtrosRouter } from "./routers/filtros";
 
 export const appRouter = router({
     // if you need to use socket.io, read and register route in server/_core/index.ts, all api should start with '/api/' so that the gateway can route correctly
@@ -17,12 +23,13 @@ export const appRouter = router({
     }),
   }),
 
-  // TODO: add feature routers here, e.g.
-  // todo: router({
-  //   list: protectedProcedure.query(({ ctx }) =>
-  //     db.getUserTodos(ctx.user.id)
-  //   ),
-  // }),
+  // BI Dashboard Routers
+  dashboard: dashboardRouter,
+  financeiro: financeiroRouter,
+  comercial: comercialRouter,
+  operacional: operacionalRouter,
+  limitesGiro: limitesGiroRouter,
+  filtros: filtrosRouter,
 });
 
 export type AppRouter = typeof appRouter;

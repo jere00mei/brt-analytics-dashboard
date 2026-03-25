@@ -25,4 +25,43 @@ export const users = mysqlTable("users", {
 export type User = typeof users.$inferSelect;
 export type InsertUser = typeof users.$inferInsert;
 
-// TODO: Add your tables here
+// Dashboard Tables for BI Analytics
+export const dashboardCache = mysqlTable("dashboard_cache", {
+  id: int("id").autoincrement().primaryKey(),
+  cacheKey: varchar("cacheKey", { length: 255 }).notNull().unique(),
+  cacheType: mysqlEnum("cacheType", ["kpi", "sales", "costs", "inventory", "limits", "turnover"]).notNull(),
+  dataJson: text("dataJson").notNull(),
+  companyCode: int("companyCode"),
+  expiresAt: timestamp("expiresAt").notNull(),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+});
+
+export type DashboardCache = typeof dashboardCache.$inferSelect;
+export type InsertDashboardCache = typeof dashboardCache.$inferInsert;
+
+export const dashboardFilters = mysqlTable("dashboard_filters", {
+  id: int("id").autoincrement().primaryKey(),
+  userId: int("userId").notNull(),
+  filterName: varchar("filterName", { length: 255 }).notNull(),
+  filterConfig: text("filterConfig").notNull(), // JSON: {dateRange, companies, brands, sellers, productGroups}
+  isDefault: mysqlEnum("isDefault", ["Y", "N"]).default("N"),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+});
+
+export type DashboardFilter = typeof dashboardFilters.$inferSelect;
+export type InsertDashboardFilter = typeof dashboardFilters.$inferInsert;
+
+export const auditLog = mysqlTable("audit_log", {
+  id: int("id").autoincrement().primaryKey(),
+  userId: int("userId").notNull(),
+  action: varchar("action", { length: 255 }).notNull(),
+  resource: varchar("resource", { length: 255 }).notNull(),
+  details: text("details"),
+  ipAddress: varchar("ipAddress", { length: 45 }),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+});
+
+export type AuditLog = typeof auditLog.$inferSelect;
+export type InsertAuditLog = typeof auditLog.$inferInsert;
