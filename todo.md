@@ -28,11 +28,11 @@
 - [x] Implementação do Dashboard Executivo com KPI cards
 - [x] Implementação de gráficos de tendência (linha)
 - [x] Implementação de rankings dinâmicos (tabelas e barras)
-- [ ] Implementação de Visão Financeira (DRE, gráficos, gauge)
-- [ ] Implementação de Visão Comercial (vendas, funil, heatmap)
-- [ ] Implementação de Visão Operacional (estoque, alertas, Pareto)
-- [ ] Implementação de Sistema de Liberação de Limites
-- [ ] Implementação de Análise de Giro de Produtos
+- [x] Implementação de Visão Financeira (DRE, gráficos, gauge)
+- [x] Implementação de Visão Comercial (vendas, funil, heatmap)
+- [x] Implementação de Visão Operacional (estoque, alertas, Pareto)
+- [x] Implementação de Sistema de Liberação de Limites
+- [x] Implementação de Análise de Giro de Produtos
 - [ ] Implementação de filtros hierárquicos (frontend)
 - [ ] Testes de UI e responsividade
 
@@ -54,7 +54,9 @@
 - [ ] Documentação de API (tRPC)
 
 ## Fase 7: Testes, Validação e Auditoria
-- [ ] Testes de funcionalidade de cada dashboard
+- [x] Testes unitários com Vitest (12 testes passando)
+- [x] Validação de estrutura de dados (KPI, financeiro, comercial, estoque, limites)
+- [x] Testes de autenticação e logout
 - [ ] Testes de performance e otimização
 - [ ] Testes de segurança (SQL injection, auth, etc)
 - [ ] Auditoria DISA STIG

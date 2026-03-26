@@ -6,6 +6,10 @@ import ErrorBoundary from "./components/ErrorBoundary";
 import { ThemeProvider } from "./contexts/ThemeContext";
 import Home from "./pages/Home";
 import Dashboard from "./pages/Dashboard";
+import FinancialView from "./pages/FinancialView";
+import CommercialView from "./pages/CommercialView";
+import OperationalView from "./pages/OperationalView";
+import LimitsView from "./pages/LimitsView";
 
 function Router() {
   // make sure to consider if you need authentication for certain routes
@@ -13,6 +17,10 @@ function Router() {
     <Switch>
       <Route path={"\\"} component={Home} />
       <Route path={"/dashboard"} component={Dashboard} />
+      <Route path={"/financeiro"} component={FinancialView} />
+      <Route path={"/comercial"} component={CommercialView} />
+      <Route path={"/operacional"} component={OperationalView} />
+      <Route path={"/limites"} component={LimitsView} />
       <Route path={"/404"} component={NotFound} />
       {/* Final fallback route */}
       <Route component={NotFound} />
