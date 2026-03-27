@@ -22,7 +22,7 @@ export default function AdminPanel() {
     page: 1,
     limit: 100,
     search: searchUser,
-    role: selectedRole,
+    role: selectedRole === 'all' ? '' : selectedRole,
   });
 
   const { data: dashboards } = trpc.admin.getDashboards.useQuery();
@@ -88,7 +88,7 @@ export default function AdminPanel() {
     if (!usersData?.data) return [];
     return usersData.data.filter((user: any) => {
       const matchSearch = !searchUser || user.email?.toLowerCase().includes(searchUser.toLowerCase());
-      const matchRole = !selectedRole || user.role === selectedRole;
+      const matchRole = selectedRole === 'all' || !selectedRole || user.role === selectedRole;
       return matchSearch && matchRole;
     });
   }, [usersData?.data, searchUser, selectedRole]);
@@ -140,7 +140,7 @@ export default function AdminPanel() {
                         <SelectValue placeholder="Selecione um papel" />
                       </SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="">Todos</SelectItem>
+                        <SelectItem value="all">Todos</SelectItem>
                         <SelectItem value="user">Usuário</SelectItem>
                         <SelectItem value="admin">Admin</SelectItem>
                         <SelectItem value="manager">Gerente</SelectItem>
