@@ -10,6 +10,7 @@ import FinancialView from "./pages/FinancialView";
 import CommercialView from "./pages/CommercialView";
 import OperationalView from "./pages/OperationalView";
 import LimitsView from "./pages/LimitsView";
+import AdminPanel from "./pages/AdminPanel";
 
 function Router() {
   // make sure to consider if you need authentication for certain routes
@@ -21,6 +22,7 @@ function Router() {
       <Route path={"/comercial"} component={CommercialView} />
       <Route path={"/operacional"} component={OperationalView} />
       <Route path={"/limites"} component={LimitsView} />
+      <Route path={"/admin"} component={AdminPanel} />
       <Route path={"/404"} component={NotFound} />
       {/* Final fallback route */}
       <Route component={NotFound} />

@@ -65,3 +65,50 @@ export const auditLog = mysqlTable("audit_log", {
 
 export type AuditLog = typeof auditLog.$inferSelect;
 export type InsertAuditLog = typeof auditLog.$inferInsert;
+// Dashboard Permissions
+export const dashboards = mysqlTable("dashboards", {
+  id: int("id").autoincrement().primaryKey(),
+  code: varchar("code", { length: 50 }).notNull().unique(),
+  name: varchar("name", { length: 255 }).notNull(),
+  description: text("description"),
+  icon: varchar("icon", { length: 50 }),
+  route: varchar("route", { length: 255 }).notNull(),
+  isActive: mysqlEnum("isActive", ["Y", "N"]).default("Y").notNull(),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+});
+
+export type Dashboard = typeof dashboards.$inferSelect;
+export type InsertDashboard = typeof dashboards.$inferInsert;
+
+export const userPermissions = mysqlTable("user_permissions", {
+  id: int("id").autoincrement().primaryKey(),
+  userId: int("userId").notNull(),
+  dashboardId: int("dashboardId").notNull(),
+  canView: mysqlEnum("canView", ["Y", "N"]).default("Y").notNull(),
+  canEdit: mysqlEnum("canEdit", ["Y", "N"]).default("N").notNull(),
+  canDelete: mysqlEnum("canDelete", ["Y", "N"]).default("N").notNull(),
+  canExport: mysqlEnum("canExport", ["Y", "N"]).default("N").notNull(),
+  grantedAt: timestamp("grantedAt").defaultNow().notNull(),
+  grantedBy: int("grantedBy"),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+});
+
+export type UserPermission = typeof userPermissions.$inferSelect;
+export type InsertUserPermission = typeof userPermissions.$inferInsert;
+
+export const rolePermissions = mysqlTable("role_permissions", {
+  id: int("id").autoincrement().primaryKey(),
+  role: mysqlEnum("role", ["user", "admin", "manager", "viewer"]).notNull(),
+  dashboardId: int("dashboardId").notNull(),
+  canView: mysqlEnum("canView", ["Y", "N"]).default("Y").notNull(),
+  canEdit: mysqlEnum("canEdit", ["Y", "N"]).default("N").notNull(),
+  canDelete: mysqlEnum("canDelete", ["Y", "N"]).default("N").notNull(),
+  canExport: mysqlEnum("canExport", ["Y", "N"]).default("N").notNull(),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+});
+
+export type RolePermission = typeof rolePermissions.$inferSelect;
+export type InsertRolePermission = typeof rolePermissions.$inferInsert;

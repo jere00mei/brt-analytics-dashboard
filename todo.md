@@ -80,3 +80,16 @@
 - [ ] Checkpoint final do projeto
 - [ ] Entrega de todos os arquivos ao usuário
 - [ ] Validação de conformidade com especificações
+
+## Fase 8: Administração de Usuários e Permissões
+
+- [x] Estender schema MySQL com tabelas de permissões
+- [x] Criar router tRPC para gerenciamento de usuários
+- [x] Criar router tRPC para gerenciamento de permissões
+- [x] Implementar página de administração
+- [x] Implementar gerenciamento de usuários (CRUD)
+- [x] Implementar gerenciamento de permissões por dashboard
+- [x] Implementar filtros e busca de usuários
+- [x] Implementar ações em massa (editar, deletar)
+- [x] Testes unitários para gerenciamento de usuários
+- [x] Testes unitários para gerenciamento de permissões
