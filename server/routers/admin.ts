@@ -1,7 +1,7 @@
 import { TRPCError } from "@trpc/server";
 import { adminProcedure, publicProcedure, router } from "../_core/trpc";
 import { getDb } from "../db";
-import { users, userPermissions, dashboards, rolePermissions } from "../../drizzle/schema";
+import { users, userPermissions, dashboards, rolePermissions, auditLog } from "../../drizzle/schema";
 import { eq, and, like } from "drizzle-orm";
 
 export const adminRouter = router({
@@ -118,7 +118,7 @@ export const adminRouter = router({
         .where(eq(users.id, input.userId));
 
       // Log de auditoria
-      await db.insert(require("../../drizzle/schema").auditLog).values({
+      await db.insert(auditLog).values({
         userId: ctx.user.id,
         action: "UPDATE_USER",
         resource: `user_${input.userId}`,
@@ -160,7 +160,7 @@ export const adminRouter = router({
       await db.delete(users).where(eq(users.id, input.userId));
 
       // Log de auditoria
-      await db.insert(require("../../drizzle/schema").auditLog).values({
+      await db.insert(auditLog).values({
         userId: ctx.user.id,
         action: "DELETE_USER",
         resource: `user_${input.userId}`,
@@ -254,7 +254,7 @@ export const adminRouter = router({
       }
 
       // Log de auditoria
-      await db.insert(require("../../drizzle/schema").auditLog).values({
+      await db.insert(auditLog).values({
         userId: ctx.user.id,
         action: "UPDATE_PERMISSION",
         resource: `user_${input.userId}_dashboard_${input.dashboardId}`,
@@ -297,7 +297,7 @@ export const adminRouter = router({
         );
 
       // Log de auditoria
-      await db.insert(require("../../drizzle/schema").auditLog).values({
+      await db.insert(auditLog).values({
         userId: ctx.user.id,
         action: "REMOVE_PERMISSION",
         resource: `user_${input.userId}_dashboard_${input.dashboardId}`,
@@ -361,7 +361,6 @@ export const adminRouter = router({
       if (!db) throw new TRPCError({ code: "INTERNAL_SERVER_ERROR" });
 
       const offset = (input.page - 1) * input.limit;
-      const auditLog = require("../../drizzle/schema").auditLog;
 
       let query: any = db.select().from(auditLog);
 
